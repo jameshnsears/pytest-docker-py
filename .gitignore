@@ -1,5 +1,7 @@
-/venv-00/
+.coverage
+build
+dist
+*.egg-info/
 /.idea/
 /.pytest_cache/
-/pytest_docker_py.egg-info/
-.coverage
+/venv*/
