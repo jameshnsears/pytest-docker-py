@@ -1,0 +1,5 @@
+/venv-00/
+/.idea/
+/.pytest_cache/
+/pytest_docker_py.egg-info/
+.coverage

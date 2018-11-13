@@ -1,0 +1,33 @@
+sudo: required
+
+notifications:
+email: james.hn.sears@gmail.com
+
+services:
+  - docker
+
+language: python
+
+python:
+  - "3.6"
+
+before_script:
+  - pip install --upgrade pip
+  - pip install -r requirements.txt
+
+script:
+  # Unit Test
+  - export PYTHONPATH=/home/travis/build/jameshnsears/pytest-docker-py/pytest_docker_py:$PYTHONPATH
+  - pytest -s --flake8 --cov-report term-missing --cov . test/unit
+  - mkdir coverage
+  - mv .coverage coverage/.coverage.0
+
+  # Integration Test
+  - pip install git+https://github.com/jameshnsears/pytest-docker-py@master
+  - pytest -s --flake8 --cov-report term-missing --cov . test/integration
+  - mv .coverage coverage/.coverage.1
+  - cd coverage
+  - coverage combine
+
+after_success:
+  - COVERALLS_REPO_TOKEN=HppgEgliLFrjZV9ZrPndvrv7BCFJSr0FE coveralls
