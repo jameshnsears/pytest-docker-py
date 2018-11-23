@@ -1,4 +1,3 @@
-coverage==4.5.2
 coveralls==1.5.1
 Cython
 docker==3.5.1
