@@ -29,9 +29,14 @@ class DockerPyWrapper:
         for image_to_pull in images_to_pull:
             if image_to_pull not in self.ls_images():
                 logging.debug(image_to_pull)
-                self._client.images.pull(image_to_pull)
+                try:
+                    self._client.images.pull(image_to_pull)
+                except docker.errors.ImageNotFound as exception:
+                    logging.error(str(exception))
+                    return False
             else:
                 logging.debug('skipped: %s', image_to_pull)
+        return True
 
     def ls_containers(self, images_from_config):
         containers = []
@@ -77,8 +82,11 @@ class DockerPyWrapper:
 
     def _rm_container_artefacts(self, docker_container):
         logging.debug(docker_container['id'])
-        docker_container['container'].stop(timeout=1)
-        docker_container['container'].remove(force=True)
+        try:
+            docker_container['container'].stop(timeout=1)
+            docker_container['container'].remove(force=True)
+        except docker.errors.NotFound:
+            pass
         self._client.volumes.prune()
 
     def ls_networks(self, config_networks):

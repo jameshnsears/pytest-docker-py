@@ -46,6 +46,7 @@ class Config:
         self._container_kwarg(container_dict, container, 'network')
         self._container_kwarg(container_dict, container, 'volumes')
         self._container_kwarg(container_dict, container, 'command')
+        self._container_kwarg(container_dict, container, 'environment')
 
         return container_dict
 

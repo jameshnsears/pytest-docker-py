@@ -15,8 +15,8 @@ def pytest_runtest_setup(item):
                 # no alternative, at moment, other than using ._request
                 config = Config(item._request.getfixturevalue(DockerPyWrapper.RECOGNISED_FIXTURE))
                 docker_py_wrapper.rm_containers(config.images())
-                docker_py_wrapper.pull(config.images())
-                docker_py_wrapper.start_containers(config)
+                if docker_py_wrapper.pull(config.images()):
+                    docker_py_wrapper.start_containers(config)
 
 
 # noinspection PyUnusedLocal,PyProtectedMember

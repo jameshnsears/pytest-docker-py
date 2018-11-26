@@ -4,7 +4,7 @@
 ## 1. Introduction
 * A plugin that keeps it simple and lets you:
     * pull images - if not already pulled.
-    * start containers - with various, optional, parameters - i.e. ports; networks; volumes.
+    * start containers - with various, optional, parameters - i.e. ports; networks; volumes; commands.
     * stop containers.
 
 * See [test/integration/test_plugin.py](https://github.com/jameshnsears/pytest-docker-py/blob/master/test/integration/test_plugin.py) for a working example.

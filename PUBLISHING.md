@@ -5,7 +5,7 @@
 ## Package
 * each upload requires a new version, in setup.py
 
-## Publish
+## Publish - test.pypi.org
 * ./publish.sh
 * visit https://test.pypi.org/manage/projects/
 
@@ -16,3 +16,6 @@
 * pip install --extra-index-url https://test.pypi.org/simple/ pytest-docker-py
 * git clone https://github.com/jameshnsears/pytest-docker-py
 * pytest -s pytest-docker-py/test/integration
+
+## Publish - pypi.org
+* twine upload dist/*
