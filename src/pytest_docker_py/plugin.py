@@ -13,7 +13,7 @@ def pytest_runtest_setup(item):
             if fixturename.startswith(DockerPyWrapper.RECOGNISED_FIXTURE):
                 docker_py_wrapper = DockerPyWrapper()
                 # no alternative, at moment, other than using ._request
-                config = Config(item._request.getfixturevalue(DockerPyWrapper.RECOGNISED_FIXTURE))
+                config = Config(item._request.getfixturevalue(fixturename))
                 docker_py_wrapper.rm_containers(config.images())
                 if docker_py_wrapper.pull(config.images()):
                     docker_py_wrapper.start_containers(config)
@@ -27,4 +27,4 @@ def pytest_runtest_teardown(item, nextitem):
             if fixturename.startswith(DockerPyWrapper.RECOGNISED_FIXTURE):
                 docker_py_wrapper = DockerPyWrapper()
                 docker_py_wrapper.rm_containers(
-                    Config(item._request.getfixturevalue(DockerPyWrapper.RECOGNISED_FIXTURE)).images())
+                    Config(item._request.getfixturevalue(fixturename)).images())

@@ -3,7 +3,7 @@ import pytest
 
 
 @pytest.fixture
-def dockerpy():
+def dockerpy_easy_to_use():
     return [{'image': 'alpine:latest',
              'name': 'alpine-01',
              'ports': {'1234/tcp': 1234},
@@ -14,7 +14,7 @@ def dockerpy():
 
 
 @pytest.mark.timeout(60)
-def test_plugin(dockerpy):
+def test_plugin(dockerpy_easy_to_use):
     """
     For each test_ def, when a fixture starting with 'dockerpy' is supplied, the plugin overrides pytest's setup and teardown.
 
@@ -22,6 +22,9 @@ def test_plugin(dockerpy):
     pytest_runtest_teardown = will kill container(s).
     """
     client = docker.from_env()
+    container_found = False
     for container in client.containers.list():
         for tag in container.image.tags:
-            assert tag == 'alpine:latest'
+            if tag == 'alpine:latest':
+                container_found = True
+    assert container_found == True
