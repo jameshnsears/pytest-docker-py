@@ -25,6 +25,6 @@ def test_plugin(dockerpy_easy_to_use):
     container_found = False
     for container in client.containers.list():
         for tag in container.image.tags:
-            if tag == 'alpine:latest':
+            if 'alpine:latest' == tag:
                 container_found = True
     assert container_found == True
