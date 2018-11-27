@@ -8,7 +8,7 @@ setup(
     description="Easy to use, simple to extend, pytest plugin that minimally leverages docker-py.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    version="1.1.2",
+    version="1.1.3",
     author="James Sears",
     author_email="james.hn.sears@gmail.com",
     url="https://github.com/jameshnsears/pytest-docker-py",
