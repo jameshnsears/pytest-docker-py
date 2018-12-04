@@ -49,7 +49,7 @@ def test_stop_start_containers(configuration):
     docker_py_wrapper.start_containers(configuration)
     assert len(docker_py_wrapper.ls_containers(configuration.images())) == 2
     assert docker_py_wrapper.ls_networks(configuration.networks()) == ['docker_py_wrapper']
-    assert docker_py_wrapper.ls_volumes(configuration.volumes()) == ['alpine-01:/tmp']
+    assert docker_py_wrapper.ls_volumes(configuration.volumes()) == ['alpine-01']
 
     docker_py_wrapper.rm_containers(configuration.images())
     assert docker_py_wrapper.ls_containers(configuration.images()) == []
