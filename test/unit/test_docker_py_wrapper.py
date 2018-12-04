@@ -21,7 +21,7 @@ def configuration():
     return Config([{'image': 'alpine:latest',
                     'name': 'alpine-01',
                     'ports': {'1234/tcp': 1234},
-                    'volumes': ['alpine-01:/tmp'],
+                    'volumes': {'alpine-01': {'bind': '/tmp', 'mode': 'rw'}},
                     'command': 'sleep 12345'},
                    {'image': 'busybox:latest',
                     'name': 'busybox-01',
