@@ -18,21 +18,10 @@ python:
 - "3.6"
 
 before_script:
-- travis/before_script.sh
+- bash -x travis/before_script.sh
 
 script:
-- export PYTHONPATH=src:$PYTHONPATH
-- pytest -s --junitxml --cov-report term-missing --cov . test/unit
-- mkdir coverage
-- mv .coverage coverage/.coverage.0
-
-- pip install git+https://github.com/jameshnsears/pytest-docker-py@master
-- pytest -s --junitxml --cov-report term-missing --cov . test/integration
-- mv .coverage coverage/.coverage.1
-- cd coverage
-- coverage combine
+- bash -x travis/script.sh
 
 after_success:
-- COVERALLS_REPO_TOKEN=QMNBiS2HWgFwj5WweqqRJ4HegPztiJhyc coveralls
-- cd ..
-- sonar-scanner
+- bash -x travis/after_success.sh
