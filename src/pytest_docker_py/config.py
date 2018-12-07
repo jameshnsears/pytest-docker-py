@@ -55,7 +55,6 @@ class Config:
             container_dict[key] = container[key]
         except KeyError:
             logging.warning('%s - missing: %s' % (container['image'], key))
-            pass
         return container_dict
 
 

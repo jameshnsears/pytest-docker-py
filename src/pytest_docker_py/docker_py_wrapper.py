@@ -69,7 +69,6 @@ class DockerPyWrapper:
             logging.debug(detached_container.attrs['Id'])
         except KeyError:
             logging.error('missing: image')
-            pass
 
     def rm_containers(self, containers_to_stop):
         for docker_container in self.ls_containers(containers_to_stop):

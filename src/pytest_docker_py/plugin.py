@@ -20,7 +20,7 @@ def pytest_runtest_setup(item):
 
 # noinspection PyUnusedLocal,PyProtectedMember
 def pytest_runtest_teardown(item, nextitem):
-    logging.debug("teardown: %s", item)
+    logging.debug("teardown: %s; %s", item, nextitem)
     if "PYTEST_DOCKER_PY_KEEP_LOGS" not in os.environ:
         for fixturename in item.fixturenames:
             if fixturename.startswith(DockerPyWrapper.RECOGNISED_FIXTURE):
