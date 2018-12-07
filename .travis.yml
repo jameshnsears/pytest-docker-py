@@ -37,4 +37,5 @@ script:
 
 after_success:
 - COVERALLS_REPO_TOKEN=HppgEgliLFrjZV9ZrPndvrv7BCFJSr0FE coveralls
+- cd ..
 - sonar-scanner
