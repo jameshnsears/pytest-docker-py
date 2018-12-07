@@ -26,10 +26,6 @@ before_script:
   - pip install -r requirements.txt
   - flake8 src test
   - pylint --rcfile=setup.cfg src test -r n > pylint-report.txt 2>&1 || true
-  - sed -i '/^*/d' ./pylint-report.txt
-  - sed -i '/^$/d' ./pylint-report.txt
-  - sed -i '/^---/d' ./pylint-report.txt
-  - sed -i '/^Your code/d' ./pylint-report.txt
 
 script:
   - export PYTHONPATH=src:$PYTHONPATH
@@ -39,4 +35,4 @@ script:
 
 after_success:
   - COVERALLS_REPO_TOKEN=QMNBiS2HWgFwj5WweqqRJ4HegPztiJhyc coveralls
-  - sonar-scanner
+  - sonar-scanner -Dsonar.projectKey=jameshnsears_pytest-docker-py -Dsonar.projectName=pytest-docker-py -Dsonar.projectVersion=HEAD -Dsonar.sources=./src -Dsonar.tests=./test -Dsonar.python.xunit.reportPath=junitxml.xml-Dsonar.python.coverage.reportPath=coverage.xml -Dsonar.python.pylint.report_path=./pylint-report.txt
