@@ -1,4 +1,4 @@
-# pytest-docker-py [![Build Status](https://travis-ci.org/jameshnsears/pytest-docker-py.svg?branch=master)](https://travis-ci.org/jameshnsears/pytest-docker-py) [![Coverage Status](https://coveralls.io/repos/github/jameshnsears/pytest-docker-py/badge.svg?branch=master)](https://coveralls.io/github/jameshnsears/pytest-docker-py?branch=master)
+# pytest-docker-py [![Build Status](https://travis-ci.org/jameshnsears/pytest-docker-py.svg?branch=master)](https://travis-ci.org/jameshnsears/pytest-docker-py) [![Coverage Status](https://coveralls.io/repos/github/jameshnsears/pytest-docker-py/badge.svg?branch=master)](https://coveralls.io/github/jameshnsears/pytest-docker-py?branch=master) [![sonarcloud](https://sonarcloud.io/api/project_badges/measure?project=jameshnsears_pytest-docker-py&metric=alert_status)](https://sonarcloud.io/api/project_badges/measure?project=jameshnsears_pytest-docker-py&metric=alert_status) 
 * Easy to use, simple to extend, external [pytest](https://docs.pytest.org/en/latest/) plugin that minimally leverages [docker-py](https://github.com/docker/docker-py).
 
 ## 1. Introduction
