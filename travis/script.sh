@@ -10,3 +10,4 @@ pytest -s --junitxml --cov-report term-missing --cov . test/integration
 mv .coverage coverage/.coverage.1
 cd coverage
 coverage combine
+coverage xml -i
