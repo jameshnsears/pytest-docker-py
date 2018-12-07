@@ -6,10 +6,6 @@ email: james.hn.sears@gmail.com
 services:
 - docker
 
-env:
-  global:
-    - secure: "iqLrGidvY6Aq3dHCoyAGfcblEERcMe1nS+tyviVeR+FX9XIxn63Vx5eFdRWp4aDY66oN44/lxZ8sPq7qk3O4UvNJkMnXUI3UuM8HuwimuMASaGu73t4r9QhG7YKg3VSN+c9Qxgdp1aQ1vZ5trBeNzSzoHWHTdfWgtFcq277i8VCDcbY63MuE3gyliFEIwN8u+PZ8uBZy16ClKvZVPIWGSTgg50SNJSx4Gib126525gk3uT6dWNnN+cfjB2TbDr78F2um9SA+8NtwQqGvJX5qQoLelhSvr9mwpBQXTm458H3Lgt68BJYvpx/LZXGlYIqeNew95OG7xa4K2MLEScBRsTyx0UV1L0N9TG/DLXtUFrBX1copwkerDMJkF1HLP87OXAqLw69ZxGOiss1Tczz+2gy7h7l5/ehw8C6wtr7uWUCptGmkDoMWa8/Fj9otgjZx4lBPa3gDKHihlALRWljkFnYk1jXkdPgZOplGEO+zpZ3x03PS/q98xdYBdRfC3rMgwIp7Y5l0v0hwQpaKYiCOMhmVXSGat5AQ7E3Un3/fG8tQ5V2GhzsZfLzKIeYFow8chq0LiAH6A2qrLt2w2HZbD5e7InGRizOljBXvlzlBdUxs4/Ft4hEyScwf6sq2/bQQyfXb/KvV1Md27XWY+0TFhnYHRUaUcTf/ClN9PXSImAk="
-
 language: python
 
 python:
@@ -35,4 +31,4 @@ script:
 - coverage combine
 
 after_success:
-- coveralls --repo-token $COVERALLS_REPO_TOKEN
+- COVERALLS_REPO_TOKEN=HppgEgliLFrjZV9ZrPndvrv7BCFJSr0FE coveralls
