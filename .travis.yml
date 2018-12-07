@@ -25,23 +25,14 @@ before_script:
   - pip install --upgrade pip
   - pip install -r requirements.txt
   - flake8 src test
-  - pylint --rcfile=setup.cfg src test -r n > pylint-report.txt 2>&1 || exit 0
-  - cat pylint-report.txt
+  - pylint --rcfile=setup.cfg src test -r n > pylint-report.txt 2>&1 || true
 
 script:
   - export PYTHONPATH=src:$PYTHONPATH
-  - pytest -s --cov-report term-missing --cov . test/unit
-  - mkdir coverage
-  - mv .coverage coverage/.coverage.0
-
   - pip install git+https://github.com/jameshnsears/pytest-docker-py@master
-  - pytest -s --cov-report term-missing --cov . test/integration
-  - mv .coverage coverage/.coverage.1
-  - cd coverage
-  - coverage combine
+  - pytest -s --junitxml=junitxml.xml --cov-report term-missing --cov . test
   - coverage xml -i
 
 after_success:
   - COVERALLS_REPO_TOKEN=QMNBiS2HWgFwj5WweqqRJ4HegPztiJhyc coveralls
-  - cd ..
   - sonar-scanner
