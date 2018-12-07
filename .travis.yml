@@ -10,18 +10,37 @@ addons:
       secure: "lgG+TMvMZsfsiz8GtWriFAjc6P581cKHAjtbGHlqeNtf4wMyzmuOaIrPR8H8aVbHusRq4HwYIA22IGdFQNF7gMEbb4LEC9k9t9avDT7/L0BgqITm7jMvEQgpUahSsh299siAsrIqiA+ZdXTf+3lr0vU3K+PllXwmdPH/TmJDrnSgpJzzAthcW91xMUywJbmT8ojtra71/ROeu5560KNxrP8+yufsviA8OyB+nZhutsPePoYqlpBZwaypYmh4pvQAdDSDtFoCROgRzgLVFWaCL0o5WTwip2k5Hke+WXvPGRG+ltR87FTW/RtJmjA9h9qsofCBhNcf+S/bTDsjPUJezOhVQe1hLZAQaXig6E0bUQRoukQVEwI76l6DRmS9rTb6IwfUp6GK5gbiS4c0QiB34lRHPQ2dVf7F6AFCk2DOisYD6vEE3uCxLelUXJ6DZOfKLIzqs1z3Q7Xfnp+uCePpEticJo83wJgLvqr/bHULnTpKoL+dDW5/VJ1ROEhgskJMx2+Noa6jOaQbD1d5lBS9z4lV6vaQCXpjEWkkIPz6uIvIiB5R71bBrPOePqOJjGWQU/pCBO8U4ZS/XzHReZwkQkLXra7jWYR7NvOTa4/iC+gTKgq5ZJk/fU/iA+mg7OUNHahXfXWONlcNr/tgS/s9tc93ZBcw5jV8A2BuSl2EWXw="
 
 services:
-- docker
+  - docker
+
+cache:
+  directories:
+  - $HOME/.sonar/cache
 
 language: python
 
 python:
-- "3.6"
+  - "3.6"
 
 before_script:
-- bash -x travis/before_script.sh
+  - pip install --upgrade pip
+  - pip install -r requirements.txt
+  - flake8 src test
+  - pylint --rcfile=setup.cfg src test -r n - > pylint-report.txt
 
 script:
-- bash -x travis/script.sh
+  - export PYTHONPATH=src:$PYTHONPATH
+  - pytest -s --cov-report term-missing --cov . test/unit
+  - mkdir coverage
+  - mv .coverage coverage/.coverage.0
+
+  - pip install git+https://github.com/jameshnsears/pytest-docker-py@master
+  - pytest -s --junitxml --cov-report term-missing --cov . test/integration
+  - mv .coverage coverage/.coverage.1
+  - cd coverage
+  - coverage combine
+  - coverage xml -i
 
 after_success:
-- bash -x travis/after_success.sh
+  - cd coverage
+  - COVERALLS_REPO_TOKEN=QMNBiS2HWgFwj5WweqqRJ4HegPztiJhyc coveralls
+  - sonar-scanner
