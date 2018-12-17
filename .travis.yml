@@ -42,7 +42,7 @@ script:
   - cd ..
 
 after_success:
-  - COVERALLS_REPO_TOKEN=QMNBiS2HWgFwj5WweqqRJ4HegPztiJhyc coveralls
+  - COVERALLS_REPO_TOKEN=sF7rXEmZZcdOPJmDWQwjbYoJF2ct8BjPi coveralls
   - sonar-scanner
 
 after_failure:
