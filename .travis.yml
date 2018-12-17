@@ -39,7 +39,7 @@ script:
   - cd coverage
   - coverage combine
   - coverage xml -i
-  - ls -al
+  - mv .coverage coverage.xml ..
   - cd ..
 
 after_success:
