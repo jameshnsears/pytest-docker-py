@@ -24,11 +24,11 @@ python:
 before_script:
   - pip install --upgrade pip
   - pip install -r requirements.txt
+  - export PYTHONPATH=src:test:$PYTHONPATH
   - flake8 src test
   - pylint --rcfile=setup.cfg src test -r n > pylint-report.txt 2>&1 || true
 
 script:
-  - export PYTHONPATH=src:$PYTHONPATH
   - pytest -s --cov-report term-missing --cov . test/unit
   - mkdir coverage
   - mv .coverage coverage/.coverage.0
@@ -44,3 +44,7 @@ script:
 after_success:
   - COVERALLS_REPO_TOKEN=QMNBiS2HWgFwj5WweqqRJ4HegPztiJhyc coveralls
   - sonar-scanner
+
+after_failure:
+  - docker images
+  - docker ps -a
