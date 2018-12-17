@@ -34,11 +34,12 @@ script:
   - mv .coverage coverage/.coverage.0
 
   - pip install git+https://github.com/jameshnsears/pytest-docker-py@master
-  - pytest -s --junitxml=junitxml.xml --cov-report term-missing --cov . test
+  - pytest -s --cov-report term-missing --cov . test
   - mv .coverage coverage/.coverage.1
   - cd coverage
   - coverage combine
   - coverage xml -i
+  - ls -al
   - cd ..
 
 after_success:
