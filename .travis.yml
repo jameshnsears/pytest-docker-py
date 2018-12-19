@@ -65,8 +65,8 @@ script:
   - cd ..
 
 after_success:
-  - coveralls
   - python-codacy-coverage -r coverage.xml
+  - coveralls
   - sonar-scanner
 
 after_failure:
