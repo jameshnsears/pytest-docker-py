@@ -24,7 +24,10 @@ addons:
     notification_email: james.hn.sears@gmail.com
     build_command_prepend: ""
     build_command: "pytest -s test/unit"
-    branch_pattern: coverity_scan
+    branch_pattern: master
+
+git:
+  depth: false
 
 services:
   - docker
