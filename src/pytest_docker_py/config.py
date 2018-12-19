@@ -1,7 +1,7 @@
 import logging
 
 
-class Config:
+class Config(object):
     def __init__(self, configuration_from_fixture):
         self._configuration_from_fixture = configuration_from_fixture
 
@@ -38,7 +38,8 @@ class Config:
                 pass
         return sorted(volumes)
 
-    def container_kwargs(self, container):
+    @classmethod
+    def container_kwargs(cls, container):
         container_dict = {}
 
         Config._container_kwarg(container_dict, container, 'name')

@@ -2,9 +2,11 @@
 coverage.xml
 build
 dist
+jameshnsears_pytest-docker-py.tgz
 pylint-report.txt
 *.egg-info/
 /.idea/
 /.pytest_cache/
+/cov-int/
 /node_modules/
 /venv*/
