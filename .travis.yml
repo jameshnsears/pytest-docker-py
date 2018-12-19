@@ -5,9 +5,10 @@ email: james.hn.sears@gmail.com
 
 env:
   global:
-    # COVERITY_SCAN_TOKEN
+    # travis encrypt COVERITY_SCAN_TOKEN=...
     - secure: "D61zXfiLh2wwVJAlKujmteEOftUk/CSFgMDRvUwTij4fJ9mGz5ACnnlw717BuehIIOxyUpKceJwYMm8e965Vk03Piuhcur44mFGmXFNu3LToNWaSiYPpA1ryGhvNoXLdiumn9RhFM8fOqlqo2WyIBIcpv5EmLIYm443yRZ5YYABuYhWuCgUVc7f5GYvZOs1jdSWDLTNsJtznULjzJMw97TlTHf/z/PbH35OM3TPcwPGgnwCi3uAvd9SrYOPvWOQaCePFcqSq6OUKmWyYgsjBGXJCMOESNqVLgJjkOZEijuRNqu82NA61ls3wqSX9tWdA0XO3ogCZTL5DCX0QYDwsnsuycEELA9TmCXZoB3oQFfYYkxhRrIOYjV9zy4lU8xAOuA3A4KaMfA5/Tx/8CoWOnFe67AHmT5vW3Ki2RYF1zmdSq4dnKTZ5rkAMFyjFcNz/LxCMcQ/wnacRZlR+b0pYRSlnbMk4F4ikSAC9EgfGiSGVessddtS4Y08xKWefKG4gXrFb2Jli38JzoSOo6Peh+h2gwApQegp7Yv2N7TA/frG9Dppuy+1DvO6BDNNE2BHoakyF9/4LNpXTjIVBOuPOtLICiGalZmHUNcg1hk8/27mGZqNMKEqLtiw/bgt07caFXxfmEOK4JhXt5lT8B/8NyqQaROxTMpdcMq4WJ2RIsTg="
-
+    # travis encrypt COVERALLS_REPO_TOKEN=...
+    - secure: "P+kM+0d6viBPR/APxTlEh1GYbi7XfoBpsNwMYFN+w6PFz0WTzn/yqDJD9mG/kmLQItbnPVcxhnOpGzsdMvrbZ8yjTSRjYeYM7WcN3LNq33qyrz2K4e4EvSSdONvptth87Veod+C6OWbZF9/rN5BmTp2Ichy4niaTJMCPsJQlTjTq2f6QoIfnHKTC9hAfa4bSfjJWUNhH8GmgH3bHUFuVpU/Ja0GGHPlhtH6snPV+eu/+PiR429laMvbRUqbSd+CxIU2RX20xV6HHYDH1ZAvoH7kid+zYNDbmKnMYq1XiiCgxLO9fm/hdON66IslwA8Ym5M5Zpv9/3KN1hnfENuHvv9KTLCjqDgIJRWD410EsNSQRdyW3JoUe36eS7YxupZ7UVO4QhPsOlj7jUSLaq4IYlfrSveTbB7Df1FRerh5bQ2X5WLIdSwOhhpmIAL5gg8lI2pBJ7GXjjSjbMPFYApGb8o3UmUcwuBVx5lSk2KgPnxw/d77OZkN+yHuJdHrGrnSCI1vTdB1duwSQpxOEwAB84HischcnsikLhBn++nGEuR/h/CWNSAoAfbv0AWGhk0lHSZEqt57UT3QcMaT2UNpnUHTPTgibrBSrmg5WmQ5abA5tpfEjgKm+l4TfZUP/srTzav6J6wDZ4olOLVn8fS6lPB4QxE10fW7FxOvGplKfvDM="
 
 addons:
   sonarcloud:
@@ -21,10 +22,9 @@ addons:
       version: HEAD
       description: pytest-docker-py
     notification_email: james.hn.sears@gmail.com
-    build_command_prepend: ./configure
-    build_command: make
+    build_command_prepend: ""
+    build_command: "pytest -s test/unit"
     branch_pattern: coverity_scan
-
 
 services:
   - docker
@@ -37,6 +37,9 @@ language: python
 
 python:
   - "3.6"
+
+before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 
 before_script:
   - pip install --upgrade pip
@@ -60,7 +63,7 @@ script:
   - cd ..
 
 after_success:
-  - COVERALLS_REPO_TOKEN=sF7rXEmZZcdOPJmDWQwjbYoJF2ct8BjPi coveralls
+  - coveralls
   - sonar-scanner
 
 after_failure:
