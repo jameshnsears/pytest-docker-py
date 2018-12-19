@@ -6,4 +6,5 @@ pylint-report.txt
 *.egg-info/
 /.idea/
 /.pytest_cache/
+/node_modules/
 /venv*/
