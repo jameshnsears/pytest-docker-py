@@ -41,16 +41,17 @@ class Config:
     def container_kwargs(self, container):
         container_dict = {}
 
-        self._container_kwarg(container_dict, container, 'name')
-        self._container_kwarg(container_dict, container, 'ports')
-        self._container_kwarg(container_dict, container, 'network')
-        self._container_kwarg(container_dict, container, 'volumes')
-        self._container_kwarg(container_dict, container, 'command')
-        self._container_kwarg(container_dict, container, 'environment')
+        Config._container_kwarg(container_dict, container, 'name')
+        Config._container_kwarg(container_dict, container, 'ports')
+        Config._container_kwarg(container_dict, container, 'network')
+        Config._container_kwarg(container_dict, container, 'volumes')
+        Config._container_kwarg(container_dict, container, 'command')
+        Config._container_kwarg(container_dict, container, 'environment')
 
         return container_dict
 
-    def _container_kwarg(self, container_dict, container, key):
+    @classmethod
+    def _container_kwarg(cls, container_dict, container, key):
         try:
             container_dict[key] = container[key]
         except KeyError:
